@@ -13,7 +13,7 @@ export class RegistrationPage extends Component {
         const user = { name, email, username, password};
         return this.props
                 .dispatch(registerUser(user))
-                .then(() => this.props.dispatch(login(username, password)));
+                .then(() => {return this.props.dispatch(login(username, password));});
     }
     render() {
         if (this.props.loggedIn) {
@@ -30,7 +30,7 @@ export class RegistrationPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    LoggedIn: state.auth.currentUser !== null
+    loggedIn: state.auth.currentUser !== null
 });
 
 export default connect(mapStateToProps)(RegistrationPage);
