@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 
+import { registerUser } from '../../Actions/users';
+import { login } from '../../Actions/auth';
+
 import RegistrationForm from './RegistrationForm';
 
 export class RegistrationPage extends Component {
     signin = values => {
-        console.log(values);
+        const { name, email, username, password } = values;
+        const user = { name, email, username, password};
+        return this.props
+                .dispatch(registerUser(user))
+                .then(() => this.props.dispatch(login(username, password)));
     }
     render() {
         if (this.props.loggedIn) {

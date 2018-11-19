@@ -17,8 +17,8 @@ export const getAuthenticatedUserFromLocalStorage = () => {
     }
 }
 
-export const saveAuthenticatedUserIntoLocalStorage = (user) => {
-    localStorage.setItem('jwtToken', user.jwtToken);
+export const saveAuthenticatedUserIntoLocalStorage = (jwtToken, user) => {
+    localStorage.setItem('jwtToken', jwtToken);
     localStorage.setItem('userid', user.id);
     localStorage.setItem('username', user.username);
     localStorage.setItem('name', user.name);

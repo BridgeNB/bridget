@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { composeWithDevTools, devToolsEnhancer } from 'redux-devtools-extension';
 import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
 import {getAuthenticatedUserFromLocalStorage} from './local-storage';
@@ -10,12 +11,14 @@ const store = createStore(
         form: formReducer,
         auth: authReducer
     }),
-    applyMiddleware(thunk)
+    composeWithDevTools(
+        applyMiddleware(thunk)
+    )
 );
 
 const authToken = getAuthenticatedUserFromLocalStorage();
 if (authToken) {
-    const token = authToken;
+    const token = authToken.jwtToken;
     store.dispatch(setAuthToken(token));
     store.dispatch(refreshAuthToken());
 }

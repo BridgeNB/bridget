@@ -3,13 +3,16 @@ import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom';
 
 import LoginForm from './LoginForm';
+import { login } from '../../Actions/auth';
 
 export class LoginPage extends Component {
     login = values => {
-        console.log(values);
+        return this.props.dispatch(login(values.username, values.password));
         // this.props.dispatch(createUserAction(values)).then(() => { this.props.history.push("/login") })
     }
     render() {
+        // console.log(this.props);
+        // console.log(this.props.loggedIn);
         if (this.props.loggedIn) {
             return <Redirect to="/" />;
         }

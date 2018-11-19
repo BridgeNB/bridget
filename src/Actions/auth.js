@@ -33,11 +33,14 @@ export const authError = error => ({
 });
 
 
-const storeAuthInfo = (authToken, dispatch) => {
-    const decodedToken = jwtDecode(authToken);
-    dispatch(setAuthToken(authToken));
+const storeAuthInfo = (jwtToken, dispatch) => {
+    const decodedToken = jwtDecode(jwtToken);
+    console.log(jwtToken);
+    console.log(decodedToken);
+    console.log(decodedToken.user);
+    dispatch(setAuthToken(jwtToken));
     dispatch(authSuccess(decodedToken.user));
-    saveAuthenticatedUserIntoLocalStorage(authToken);
+    saveAuthenticatedUserIntoLocalStorage(jwtToken, decodedToken.user);
 };
 
 export const login = (username, password) => dispatch => {
@@ -53,9 +56,15 @@ export const login = (username, password) => dispatch => {
                 password
             })
         })
-            .then(res => normalizeResponseErrors(res))
-            .then(res => res.json())
-            .then(({authToken}) => storeAuthInfo(authToken, dispatch))
+            .then(res => {
+                return normalizeResponseErrors(res);
+            })
+            .then(res => {
+                return res.json();
+            })
+            .then(({jwtToken}) => {
+                return storeAuthInfo(jwtToken, dispatch);
+            })
             .catch(err => {
                 const {code} = err;
                 const message =

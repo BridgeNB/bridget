@@ -17,6 +17,7 @@ class App extends Component {
           <div className="nav-btns">
             <Link to={"/api/auth/login"}><button>Log In</button></Link>
             <Link to={"/api/auth/register"}><button>Sign Up</button></Link>
+            <button>Log Out</button>
           </div>
         </div>
         <main className="main">
@@ -32,4 +33,9 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  hasAuthTokne: state.auth.authToken !== null,
+  loggedIn:     state.auth.currentUser !== null
+});
+
+export default withRouter(connect(mapStateToProps)(App));
