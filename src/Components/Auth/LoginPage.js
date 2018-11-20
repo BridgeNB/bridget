@@ -11,8 +11,6 @@ export class LoginPage extends Component {
         // this.props.dispatch(createUserAction(values)).then(() => { this.props.history.push("/login") })
     }
     render() {
-        // console.log(this.props);
-        // console.log(this.props.loggedIn);
         if (this.props.loggedIn) {
             return <Redirect to="/" />;
         }
