@@ -30,4 +30,10 @@ class CategoryList extends Component {
   }
 }
 
-export default CategoryList;
+const mapStateToProps = state => ({
+  isLoggedIn: state.auth.currentUser !== null,
+  // username: state.auth.currentUser.name
+});
+
+// export default connect(mapStateToProps)(LandingView);
+export default connect(mapStateToProps)(CategoryList);

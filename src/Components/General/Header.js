@@ -4,14 +4,19 @@ import { connect } from 'react-redux';
 
 import { clearAuth } from '../../Actions/auth';
 import { deleteAuthenticatedUserFromLocalStorage } from '../../local-storage';
+import { getAuthenticatedUserFromLocalStorage } from '../../local-storage';
 
 export class Header extends Component {
+    
     logOut() {
         this.props.dispatch(clearAuth());
         deleteAuthenticatedUserFromLocalStorage();
     }
+    
     render() {
-        const DefaultHeader = !this.props.loggedIn ? (
+        const { loggedIn, currentUser } = this.props;
+
+        const DefaultHeader = !loggedIn ? (
             <React.Fragment>
               <div className="nav-btns">
                 <header>Welcome to Bridget Forum </header>
@@ -20,12 +25,14 @@ export class Header extends Component {
               </div>
             </React.Fragment>
           ) : null;
-          const LoggedInHeader = this.props.loggedIn ? (
+
+        const LoggedInHeader = loggedIn ? (
             <div className="nav-btns">
-              <header>Welcome to Bridget Forum </header>
+              <header>Welcome to Bridget Forum, {currentUser.username}! </header>
               <button onClick={() => this.logOut()}>Log Out</button>
             </div>
           ) : null;
+
         return (
             <div className="header">
                 {DefaultHeader}
@@ -36,8 +43,8 @@ export class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-    hasAuthTokne: state.auth.authToken !== null,
-    loggedIn:     state.auth.currentUser !== null
+    loggedIn:     state.auth.currentUser !== null,
+    currentUser:  state.auth.currentUser
 });
 
 export default connect(mapStateToProps)(Header);
