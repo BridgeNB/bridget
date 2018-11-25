@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Field, reduxForm, focus} from 'redux-form';
-import Input from '../Input';
+import Input from '../General/Input';
 
 export class RegistrationForm extends Component {
     render() {

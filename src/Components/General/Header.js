@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import { clearAuth } from '../../Actions/auth';
 import { deleteAuthenticatedUserFromLocalStorage } from '../../local-storage';
-import { getAuthenticatedUserFromLocalStorage } from '../../local-storage';
 
 export class Header extends Component {
     
@@ -13,6 +12,10 @@ export class Header extends Component {
         deleteAuthenticatedUserFromLocalStorage();
     }
     
+    createPost() {
+        console.log('create post');
+    }
+
     render() {
         const { loggedIn, currentUser } = this.props;
 
@@ -27,10 +30,14 @@ export class Header extends Component {
           ) : null;
 
         const LoggedInHeader = loggedIn ? (
-            <div className="nav-btns">
-              <header>Welcome to Bridget Forum, {currentUser.username}! </header>
-              <button onClick={() => this.logOut()}>Log Out</button>
-            </div>
+            <React.Fragment>
+                <div className="nav-btns">
+                    <header>Welcome to Bridget Forum, {currentUser.username}! </header>
+                    <i>Now you can create new post, make comment below existing post</i>
+                    <Link to={"/api/post/create"}><button>Create new post</button></Link>
+                    <button onClick={() => this.logOut()}>Log Out</button>
+                </div>
+            </React.Fragment>
           ) : null;
 
         return (
