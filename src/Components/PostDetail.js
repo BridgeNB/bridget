@@ -34,6 +34,8 @@ class DetailedPost extends Component {
                   <span>{ post.voteScore } <strong>Votes</strong></span>
                 </div>
               </div>
+              <textarea>comment</textarea>
+              <button type="submit">comment</button>
             </div>
           </div>
         </div>
